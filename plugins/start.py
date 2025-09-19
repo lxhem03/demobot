@@ -94,3 +94,22 @@ async def cancel_process(bot:Client, message:Message):
         
     except BaseException:
         pass
+
+@Client.on_message(filters.command("maintenance") & filters.user(Config.ADMIN))
+async def maintenance_cmd(_, m: Message):
+    args = m.text.split(maxsplit=1)
+    if len(args) < 2:
+        return await m.reply("Usage: /maintenance [on/off]")
+    status = args[1].lower()
+    if status == "on":
+        if await db.get_maintenance():
+            return await m.reply("⚠️ Maintenance mode is already enabled.")
+        await db.set_maintenance(True)
+        return await m.reply("✅ Maintenance mode **enabled**.")
+    elif status == "off":
+        if not await db.get_maintenance():
+            return await m.reply("⚠️ Maintenance mode is already disabled.")
+        await db.set_maintenance(False)
+        return await m.reply("❌ Maintenance mode **disabled**.")
+    else:
+        await m.reply("Invalid status. Use 'on' or 'off'.")
