@@ -2,6 +2,8 @@ import datetime
 import motor.motor_asyncio
 from config import Config
 from .utils import send_log
+from motor.motor_asyncio import AsyncIOMotorClient
+
 
 class Database:
 
@@ -17,7 +19,7 @@ class Database:
             caption=None,
             thumbnail=None,
             ffmpegcode=None,
-            metadata=""" -map 0 -c:s copy -c:a copy -c:v copy -metadata title="Powered By:- @Kdramaland" -metadata author="@Snowball_Official" -metadata:s:s title="Subtitled By :- @Kdramaland" -metadata:s:a title="By :- @Kdramaland" -metadata:s:v title="By:- @Snowball_Official" """,
+            metadata=None,
             ban_status=dict(
                 is_banned=False,
                 ban_duration=0,
@@ -110,6 +112,17 @@ class Database:
     async def get_all_banned_users(self):
         banned_users = self.col.find({'ban_status.is_banned': True})
         return banned_users
+
+    async def get_maintenance() -> bool:
+        data = await self.col.find_one({"_id": "maintenance"})
+        return data.get("status", False) if data else False
+
+    async def set_maintenance(status: bool):
+        await self.col.update_one(
+            {"_id": "maintenance"},
+            {"$set": {"status": status}},
+            upsert=True
+        )
 
 
 db = Database(Config.DB_URL, Config.DB_NAME)
