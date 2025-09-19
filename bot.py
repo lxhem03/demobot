@@ -3,7 +3,7 @@ from pyrogram import (
     __version__,
     filters
 )
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.raw.all import layer
 from config import Config
 import logging
