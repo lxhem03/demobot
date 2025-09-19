@@ -22,8 +22,7 @@ async def Handle_StartMsg(bot:Client, msg:Message):
     if msg.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(msg.from_user.id):
         botusername = await bot.get_me()
         btn = [
-            [InlineKeyboardButton(text='⚡ BOT PM', url=f'https://t.me/{botusername.username}')],
-            [InlineKeyboardButton(text='💻 Dᴇᴠᴇʟᴏᴘᴇʀ', url='https://t.me/Snowball_Official')]
+            [InlineKeyboardButton(text='⚡ BOT PM', url=f'https://t.me/{botusername.username}')]
         ]
 
         await Snowdev.edit(text=Txt.GROUP_START_MSG.format(msg.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
@@ -31,7 +30,7 @@ async def Handle_StartMsg(bot:Client, msg:Message):
     else:
         btn = [
             [InlineKeyboardButton(text='❗ Hᴇʟᴘ', callback_data='help'), InlineKeyboardButton(text='🌨️ Aʙᴏᴜᴛ', callback_data='about')],
-            [InlineKeyboardButton(text='📢 Uᴘᴅᴀᴛᴇs', url='https://t.me/AIORFT'), InlineKeyboardButton(text='💻 Dᴇᴠᴇʟᴏᴘᴇʀ', url='https://t.me/Snowball_Official')]
+            [InlineKeyboardButton(text='📢 Uᴘᴅᴀᴛᴇs', url='https://t.me/The_TGguy'), InlineKeyboardButton(text='💻 Support', url='https://t.me/Tg_Guy_Support')]
         ]
 
         if Config.START_PIC:
@@ -51,8 +50,7 @@ async def Files_Option(bot:Client, message:Message):
     if message.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(message.from_user.id):
         botusername = await bot.get_me()
         btn = [
-            [InlineKeyboardButton(text='⚡ BOT PM', url=f'https://t.me/{botusername.username}')],
-            [InlineKeyboardButton(text='💻 Dᴇᴠᴇʟᴏᴘᴇʀ', url='https://t.me/Snowball_Official')]
+            [InlineKeyboardButton(text='⚡ BOT PM', url=f'https://t.me/{botusername.username}')]
         ]
 
         return await SnowDev.edit(text=Txt.GROUP_START_MSG.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
@@ -87,12 +85,12 @@ async def Files_Option(bot:Client, message:Message):
 async def cancel_process(bot:Client, message:Message):
     
     try:
+        await message.reply_text(text="**Canceled All On Going Processes ✅**")
         shutil.rmtree(f"encode/{message.from_user.id}")
         shutil.rmtree(f"ffmpeg/{message.from_user.id}")
         shutil.rmtree(f"Renames/{message.from_user.id}")
         shutil.rmtree(f"Metadata/{message.from_user.id}")
         shutil.rmtree(f"Screenshot_Generation/{message.from_user.id}")
         
-        return await message.reply_text(text="**Canceled All On Going Processes ✅**")
     except BaseException:
         pass
