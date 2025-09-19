@@ -12,8 +12,7 @@ RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.t
     tar xJf ffmpeg-release-amd64-static.tar.xz && \
     mv ffmpeg-*/ffmpeg /usr/local/bin/ffmpeg && \
     mv ffmpeg-*/ffprobe /usr/local/bin/ffprobe && \
-    rm -rf ffmpeg-* && \
-    rm ffmpeg-release-amd64-static.tar.xz
+    rm -rf ffmpeg-*
 
 COPY . .
 RUN pip3 install -r requirements.txt
