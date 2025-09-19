@@ -1,5 +1,5 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from config import AUTH_CHANNELS
+from config import Config
 from pyrogram import Client
 from pyrogram.types import Message
 from typing import List
@@ -9,7 +9,7 @@ async def get_fsub(bot: Client, message: Message) -> bool:
     tb = await bot.get_me()
     user_id = message.from_user.id
     not_joined_channels = []
-    for channel_id in AUTH_CHANNELS:
+    for channel_id in Config.AUTH_CHANNELS:
         try:
             await bot.get_chat_member(channel_id, user_id)
         except UserNotParticipant:
