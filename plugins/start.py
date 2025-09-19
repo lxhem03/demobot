@@ -9,6 +9,7 @@ from pyrogram.errors import FloodWait
 from pyrogram import Client, filters, enums
 from .check_user_status import handle_user_status
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+from .ForceSub import get_fsub
 
 @Client.on_message((filters.private | filters.group))
 async def _(bot: Client, cmd: Message):
@@ -18,7 +19,7 @@ async def _(bot: Client, cmd: Message):
 async def Handle_StartMsg(bot:Client, msg:Message):
 
     Snowdev = await msg.reply_text(text= '**Please Wait...**', reply_to_message_id=msg.id)
-
+    if Config.IS_FSUB and not await get_fsub(client, message):return
     if msg.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(msg.from_user.id):
         botusername = await bot.get_me()
         btn = [
@@ -46,7 +47,7 @@ async def Handle_StartMsg(bot:Client, msg:Message):
 async def Files_Option(bot:Client, message:Message):
     
     SnowDev = await message.reply_text(text='**Please Wait**', reply_to_message_id=message.id)
-
+    if Config.IS_FSUB and not await get_fsub(client, message):return
     if message.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(message.from_user.id):
         botusername = await bot.get_me()
         btn = [
