@@ -1,7 +1,9 @@
 from pyrogram import (
     Client,
-    __version__
+    __version__,
+    filters
 )
+from pyrogram.types import Message
 from pyrogram.raw.all import layer
 from config import Config
 import logging
@@ -54,14 +56,20 @@ class Bot (Client):
             except:
                 print("Pʟᴇᴀꜱᴇ Mᴀᴋᴇ Tʜɪꜱ Iꜱ Aᴅᴍɪɴ Iɴ Yᴏᴜʀ Lᴏɢ Cʜᴀɴɴᴇʟ")
 
-            if await db.get_maintenance() and message.from_user.id != ADMIN:
-                await message.delete()
-                return await message.reply_text("**🛠️ Bot is Under Maintenance**", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Updates", url="t.me/The_TGguy")]]))
-
     async def stop(self, *args):
         await super().stop()
         logging.info("Bot Stopped ⛔")
 
+@Client.on_message(filters.private)
+async def handler(client, message):
+    if await db.get_maintenance() and message.from_user.id != Config.ADMIN:
+        await message.delete()
+        return await message.reply_text(
+            "**🛠️ Bot is Under Maintenance**",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("Updates", url="t.me/The_TGguy")]]
+            )
+        )
 
 bot = Bot()
 bot.run()
