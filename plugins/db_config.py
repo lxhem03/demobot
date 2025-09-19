@@ -147,7 +147,7 @@ async def set_metadata(client, message):
         metadata = await client.ask(text=Txt.SEND_METADATA, chat_id=message.chat.id, user_id=message.from_user.id, filters=filters.text, timeout=30)
 
     except TimeoutError:
-        await message.reply_text("Error!!\n\nRequest timed out.\nRestart by using /set_ffmpeg", reply_to_message_id= metadata.id)
+        await message.reply_text("Error!!\n\nRequest timed out.\nRestart by using /set_metadata", reply_to_message_id= metadata.id)
         return
     
     await db.set_metadata(message.from_user.id, metadata=metadata.text)
