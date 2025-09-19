@@ -63,13 +63,6 @@ Available commands:-
 
 """
 
-    ABOUT_TXT = """<b>╭───────────⍟
-├🤖 ᴍy ɴᴀᴍᴇ : @{}
-├👨‍💻 Pʀᴏɢʀᴀᴍᴇʀ : <a href=https://t.me/Snowball_Official>𝓢𝓝𝓞𝓦𝓑𝓐𝓛𝓛</a>
-├👑 Instagram : <a href=https://www.instagram.com/ritesh6_>C-Insta</a> 
-├☃️ ꜰᴏᴜɴᴅᴇʀ ᴏꜰ : <a href=https://t.me/+mCdsJ7mjeBEyZWQ1>K-Lᴀɴᴅ</a>
-├📕 Lɪʙʀᴀʀy : <a href=https://github.com/pyrogram>Pyʀᴏɢʀᴀᴍ</a>
-├✏️ Lᴀɴɢᴜᴀɢᴇ: <a href=https://www.python.org>Pyᴛʜᴏɴ 3</a>
-├💾 Dᴀᴛᴀ Bᴀꜱᴇ: <a href=https://cloud.mongodb.com>Mᴏɴɢᴏ DB</a>
-├🌀 ᴍʏ ꜱᴇʀᴠᴇʀ : <a href=https://dashboard.heroku.com>Heroku</a>
-╰───────────────⍟ """
+    ABOUT_TXT = f"""◇──◇──◇──◇──◇──◇──◇──◇
+<blockquote>‣ Mʏ ᴜsᴇʀɴᴀᴍᴇ: @{} \n\n‣ Cʀᴇᴀᴛᴏʀ ᴏғ ᴍᴇ: <a href='https://t.me/The_TGguy'>𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝙶𝚞𝚢!!</a>\n\n‣ Dᴀᴛᴀʙᴀsᴇ: <a href='https://www.mongodb.com/'>𝙼𝚘𝚗𝚐𝚘 𝙳𝙱</a>\n\n‣ Pʀᴏɢʀᴀᴍᴍᴇᴅ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/'>𝙿𝚢𝚝𝚑𝚘𝚗</a>\n\n‣ Hᴏsᴛᴇᴅ Oɴ: <a href='https://www.heroku.com/'>𝙷𝚎𝚛𝚘𝚔𝚞</a></blockquote>
+◇──◇──◇──◇──◇──◇──◇──◇"""
