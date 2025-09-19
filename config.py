@@ -41,3 +41,14 @@ __Downloaded in {4}__
 __Encoded in {5}__
 __Uploaded in {6}__
 """
+
+dump = """
+{0}
+
+**Original File Size:** {1}
+**Encoded File Size:** {2}
+**Compression Percentage:** {3}
+
+__User:__ {4}
+__ID:__ `{5}`
+"""
