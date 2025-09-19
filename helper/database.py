@@ -113,7 +113,9 @@ class Database:
         banned_users = self.col.find({'ban_status.is_banned': True})
         return banned_users
 
-   async def get_maintenance(self) -> bool:
+    
+
+    async def get_maintenance(self) -> bool:
         data = await self.col.find_one({"_id": "maintenance"})
         return data.get("status", False) if data else False
 
