@@ -60,16 +60,6 @@ class Bot (Client):
         await super().stop()
         logging.info("Bot Stopped ⛔")
 
-@Client.on_message(filters.private)
-async def handler(client, message):
-    if await db.get_maintenance() and message.from_user.id != Config.ADMIN:
-        await message.delete()
-        return await message.reply_text(
-            "**🛠️ Bot is Under Maintenance**",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Updates", url="t.me/The_TGguy")]]
-            )
-        )
 
 bot = Bot()
 bot.run()
