@@ -10,7 +10,7 @@ class Config(object):
     API_ID    = os.environ.get("API_ID", "27394279")  # ⚠️ Required
     API_HASH  = os.environ.get("API_HASH", "90a9aa4c31afa3750da5fd686c410851") # ⚠️ Required
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "7492763086:AAGKmIggAREQZHGlVAc37SR1egEw-AH6Rys") # ⚠️ Required
-    IS_FSUB = bool(os.environ.get("FSUB", True)) # Set "True" For Enable Force Subscribe
+    IS_FSUB = bool(os.environ.get("FSUB", False)) # Set "True" For Enable Force Subscribe
     AUTH_CHANNELS = list(map(int, os.environ.get("AUTH_CHANNEL", "-1002226481922").split())) # Add Multiple channel id
    
     # database config
@@ -19,14 +19,14 @@ class Config(object):
 
     # Other Configs 
     ADMIN = int(os.environ.get("ADMIN", "1705634892")) # ⚠️ Required
-    LOG_CHANNEL = int(os.environ.get('LOG_CHANNEL', '-1002355748198')) # ⚠️ Required
-    DUMP_CHANNEL = int(os.environ.get('DUMP_CHANNEL', '-1002731272735'))
+    LOG_CHANNEL = int(os.environ.get('LOG_CHANNEL', '-1002288135729')) # ⚠️ Required
+    DUMP_CHANNEL = int(os.environ.get('DUMP_CHANNEL', '-1002288135729'))
     
     BOT_UPTIME = time.time()
     START_PIC = os.environ.get("START_PIC", "")
 
     # wes response configuration     
-    WEBHOOK = bool(os.environ.get("WEBHOOK", True))
+    WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     PORT = int(os.environ.get("PORT", "8080"))
 
 
