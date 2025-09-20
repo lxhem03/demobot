@@ -1,7 +1,7 @@
 import datetime
 from helper.database import db
 from config import Config
-
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 async def handle_user_status(bot, cmd):
     chat_id = cmd.from_user.id
