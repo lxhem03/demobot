@@ -1,5 +1,5 @@
 import asyncio
-import shutil
+import shutil, os
 import humanize
 from time import sleep
 from config import Config
