@@ -18,6 +18,8 @@ async def _(bot: Client, cmd: Message):
 @Client.on_message((filters.private | filters.group) & filters.command('start'))
 async def Handle_StartMsg(bot:Client, msg:Message):
 
+    if Config.IS_FSUB and not await get_fsub(bot, message):return    
+    
     Snowdev = await msg.reply_text(text= '**Please Wait...**', reply_to_message_id=msg.id)
     
     if msg.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(msg.from_user.id):
@@ -46,7 +48,7 @@ async def Handle_StartMsg(bot:Client, msg:Message):
 @Client.on_message((filters.private | filters.group) & (filters.document | filters.audio | filters.video))
 async def Files_Option(bot:Client, message:Message):
 
-    if Config.IS_FSUB and not await get_fsub(client, message):return
+    if Config.IS_FSUB and not await get_fsub(bot, message):return
 
     
     SnowDev = await message.reply_text(text='**Please Wait**', reply_to_message_id=message.id)
