@@ -16,34 +16,57 @@ async def _(bot: Client, cmd: Message):
     await handle_user_status(bot, cmd)
 
 @Client.on_message((filters.private | filters.group) & filters.command('start'))
-async def Handle_StartMsg(bot:Client, msg:Message):
+async def Handle_StartMsg(bot: Client, msg: Message):
 
-    if Config.IS_FSUB and not await get_fsub(bot, message):return    
-    
-    Snowdev = await msg.reply_text(text= '**Please Wait...**', reply_to_message_id=msg.id)
-    
-    if msg.chat.type == enums.ChatType.SUPERGROUP and not await db.is_user_exist(msg.from_user.id):
+    # 🔹 1. Force Sub check (exit if not subscribed)
+    if Config.IS_FSUB:
+        if not await get_fsub(bot, msg):
+            return
+
+    # 🔹 2. Register user if not already in DB
+    if not await db.is_user_exist(msg.from_user.id):
+        await db.add_user(bot, msg)
+
+    # Temporary "please wait" message
+    Snowdev = await msg.reply_text("**Please Wait...**", reply_to_message_id=msg.id)
+
+    # 🔹 3. Handle Group case
+    if msg.chat.type == enums.ChatType.SUPERGROUP:
         botusername = await bot.get_me()
-        btn = [
-            [InlineKeyboardButton(text='⚡ BOT PM', url=f'https://t.me/{botusername.username}')]
-        ]
+        btn = [[InlineKeyboardButton("⚡ BOT PM", url=f"https://t.me/{botusername.username}")]]
+        await Snowdev.edit(
+            text=Txt.GROUP_START_MSG.format(msg.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(btn)
+        )
 
-        await Snowdev.edit(text=Txt.GROUP_START_MSG.format(msg.from_user.mention), reply_markup=InlineKeyboardMarkup(btn))
-    
+    # 🔹 4. Handle Private case
     else:
         btn = [
-            [InlineKeyboardButton(text='❗ Hᴇʟᴘ', callback_data='help'), InlineKeyboardButton(text='🌨️ Aʙᴏᴜᴛ', callback_data='about')],
-            [InlineKeyboardButton(text='📢 Uᴘᴅᴀᴛᴇs', url='https://t.me/The_TGguy'), InlineKeyboardButton(text='💻 Support', url='https://t.me/Tg_Guy_Support')]
+            [
+                InlineKeyboardButton("❗ Hᴇʟᴘ", callback_data="help"),
+                InlineKeyboardButton("🌨️ Aʙᴏᴜᴛ", callback_data="about")
+            ],
+            [
+                InlineKeyboardButton("📢 Uᴘᴅᴀᴛᴇs", url="https://t.me/The_TGguy"),
+                InlineKeyboardButton("💻 Support", url="https://t.me/Tg_Guy_Support")
+            ]
         ]
 
+        await Snowdev.delete()
+
         if Config.START_PIC:
-            await Snowdev.delete()
-            await msg.reply_photo(photo=Config.START_PIC, caption=Txt.PRIVATE_START_MSG.format(msg.from_user.mention), reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=msg.id)
+            await msg.reply_photo(
+                photo=Config.START_PIC,
+                caption=Txt.PRIVATE_START_MSG.format(msg.from_user.mention),
+                reply_markup=InlineKeyboardMarkup(btn),
+                reply_to_message_id=msg.id
+            )
         else:
-            await Snowdev.delete()
-            await msg.reply_text(text=Txt.PRIVATE_START_MSG.format(msg.from_user.mention), reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=msg.id)
-            
-    
+            await msg.reply_text(
+                text=Txt.PRIVATE_START_MSG.format(msg.from_user.mention),
+                reply_markup=InlineKeyboardMarkup(btn),
+                reply_to_message_id=msg.id
+            )    
 
 @Client.on_message((filters.private | filters.group) & (filters.document | filters.audio | filters.video))
 async def Files_Option(bot:Client, message:Message):
