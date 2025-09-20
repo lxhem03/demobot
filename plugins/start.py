@@ -87,19 +87,27 @@ async def Files_Option(bot:Client, message:Message):
     except Exception as e:
         print(e)
 
-@Client.on_message((filters.private | filters.group) & filters.command('cancel'))
-async def cancel_process(bot:Client, message:Message):
-    
-    try:
-        await message.reply_text(text="**Canceled All On Going Processes ✅**")
-        shutil.rmtree(f"encode/{message.from_user.id}")
-        shutil.rmtree(f"ffmpeg/{message.from_user.id}")
-        shutil.rmtree(f"Renames/{message.from_user.id}")
-        shutil.rmtree(f"Metadata/{message.from_user.id}")
-        shutil.rmtree(f"Screenshot_Generation/{message.from_user.id}")
-        
-    except BaseException:
-        pass
+@Client.on_message((filters.private | filters.group) & filters.command("cancel"))
+async def cancel_process(bot: Client, message: Message):
+    # Always reply first
+    await message.reply_text("**Canceled All On Going Processes ✅**")
+
+    # Clean up folders safely
+    folders = [
+        f"encode/{message.from_user.id}",
+        f"ffmpeg/{message.from_user.id}",
+        f"Renames/{message.from_user.id}",
+        f"Metadata/{message.from_user.id}",
+        f"Screenshot_Generation/{message.from_user.id}",
+    ]
+
+    for folder in folders:
+        try:
+            shutil.rmtree(folder)
+        except FileNotFoundError:
+            continue
+        except Exception as e:
+            print(f"Error removing {folder}: {e}")
 
 @Client.on_message(filters.command("maintenance") & filters.user(Config.ADMIN))
 async def maintenance_cmd(_, m: Message):
