@@ -19,7 +19,7 @@ class Database:
             caption=None,
             thumbnail=None,
             ffmpegcode=None,
-            metadata=None,
+            metadata=""" -map 0 -c:s copy -c:a copy -c:v copy -metadata:s:v title="Title" """,
             ban_status=dict(
                 is_banned=False,
                 ban_duration=0,
